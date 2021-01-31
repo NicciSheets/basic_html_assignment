@@ -10,14 +10,69 @@
         <title>HTML Practice Page</title>
 
         <style>
+            table, th, td {
+               border: 1px solid black;
+           }
+           
+            td {
+               padding: 5px;
+           }
 
+            th {
+               padding: 10px;
+               background-color: #adacac91;
+               font-size: 20px;
+           }
+
+            .solid_container {
+                border: 2px groove black;
+                width: fit-content;
+                padding: 8px;
+                background-color: #adacac91;
+           }
+
+            .dashed_container {
+                border-style: dashed;
+                width: fit-content;
+                padding: 7px;
+           }
+
+            .form_element {
+                padding: 2px;
+           }
+
+            .form_element #pass, .form_element #user {
+                height: 20px;
+           }
+
+            #login_button {
+                padding: 5px;
+           }
+
+            .form_element input[type="submit"] {
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                background-color: #4CAF50;
+                color: white;
+           }
+
+           #view_choice {
+               height: 30px;
+               padding: 2px;
+          }
         </style>
     </head>
 
     <body>
         <br>
 
-        <div class="schedule_box">
+        <!-- Class schedule displayed in a table, with a link to class website(s) -->
+        <!-- target="_blank" makes the clicked link come up in a separate window -- makes navigating the initial site easier (user doesn't get lost when they're trying to get back to the initial site) -->
+        <div class="table_container">
             <table>
                 <tr>
                     <th>Course</th>
@@ -45,20 +100,20 @@
         <br><br><br>
 
         <!-- <form method="get" action="/login_action.php"> -->
-        <!-- If you use the 'get' method, it passes the username and the password values on the screen, at the end of the url...this is not very secure -->
-
-        <!-- <form method="post" action="/practice_second_page.php"> -->
-        <div class="login_box">   
+        <!-- The GET method passes the username and the password values on the screen, at the end of the url, so it's not very secure. Usernames and passwords are stored in the cache with GET method and they remain in the browser history, unless you physically delete them afterward. I used POST method for these forms, instead of GET method, for a more secure transfer of this information. -->
+        
+        <!-- Form elements ('user'/'pass') being sent to /login_action.php page through POST method -->
+        <div class="solid_container">   
             <form method="post" action="/login_action.php"> 
-            <!-- If you use the 'post' method with the username and the password, those values are 'hidden' from the url and is in the HTTP headers - it is not saved in cache and does not remain in the browser history, so it's more secure for passwords -->
                 <div class="form_element">
-                    <input type="text" name="user" placeholder="Username" required>
+                    <input type="text" name="user" id="user" placeholder="Username" required>
                 </div>
                 <div class="form_element">
-                    <input type="password" name="pass" placeholder="Password" required>
-                    <!-- the 'name' attribute is required when sending data in a form -->
+                    <input type="password" name="pass" id="pass" placeholder="Password" required>
+                    <!-- the NAME attribute is required when sending data in a form (when you submit via GET/POST) -->
+                    <!-- ID attribute is used for Javascript/JQuery/CSS, while NAME attribute is used for database queries/PHP -->
                 </div>
-                <div class="form_element">
+                <div class="form_element" id="login_button">
                     <input type="submit" value="Log In">
                 </div>
             </form>
@@ -66,7 +121,8 @@
 
         <br><br><br>
 
-        <div class="radio_button_box">
+        <!-- Form element ('account') being sent to "" through POST method...depending upon which radio button is clicked, either 'login' or 'create_new' VALUE will be sent in the POST and is accessed via the NAME attribute ('account') -->
+        <div class="dashed_container">
             <form method="post" action="">
                 <div class="form_element">
                     <input type="radio" name="account" value="login" checked="checked">Log In
@@ -79,7 +135,8 @@
 
         <br><br><br>
 
-        <div class="checkbox_box">
+        <!-- Form element(s) ('agreement') being sent to "" through POST method...depending upon which boxes are checked off (could be more than one), the VALUE will be sent and is accessed via the NAME attribute ('agreement') -->
+        <div class="dashed_container">
             <form method="post" action="">
                 <div class="form_element">
                     <input type="checkbox" name="agreement" value="rules">I have read the rules.
@@ -92,9 +149,10 @@
 
         <br><br><br>
 
-        <div class="dropdown_list_box">
+        <!-- Form element ('view_choice') being sent to "" through POST method...VALUE of chosen option ('sessions', 'syllabus', or 'assignments') is accessed via NAME attribute ('view_choice') -->
+        <div class="dropdown_container">
             <form method="post" action="">
-                <select name="view_choice">
+                <select id="view_choice" name="view_choice">
                     <option value="sessions">View Sessions</option>
                     <option value="syllabus">View Syllabus</option>
                     <option value="assignments">View Assignments</option>
